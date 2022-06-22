@@ -1,0 +1,295 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Imobiliária",
+    "description": "API Imobiliária",
+    "version": "0.0.1"
+  },
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/sign-up/client": {
+      "post": {
+        "description": "Cria um novo cliente",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "phone": "+5511999999999",
+                "password": "Foo@123"
+              }
+            }
+          }
+        ],
+        "tags": ["Auth"]
+      }
+    },
+    "/sign-up/realtor": {
+      "post": {
+        "description": "Cria um novo corretor de imóveis",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "creci": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "email": "foo@bar.com",
+                "phone": "+5511999999999",
+                "crea": "0123456789",
+                "password": "Foo@123"
+              }
+            }
+          }
+        ],
+        "tags": ["Auth"]
+      }
+    },
+    "/sign-in/client": {
+      "post": {
+        "description": "Faz login de um cliente",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "phone": "+5511999999999",
+                "password": "Foo@123"
+              }
+            }
+          }
+        ],
+        "tags": ["Auth"]
+      }
+    },
+    "/sign-in/realtor": {
+      "post": {
+        "description": "Faz login de um corretor de imóveis",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "email": "foo@bar.com",
+                "password": "Foo@123"
+              }
+            }
+          }
+        ],
+        "tags": ["Auth"]
+      }
+    },
+    "/confirm-account": {
+      "post": {
+        "description": "Verifica a conta de um cliente ou corretor de imóveis",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                },
+                "userId": {
+                  "type": "string"
+                },
+                "userType": {
+                  "type": "string",
+                  "schema": {
+                    "$ref": "#/definitions/userTypeEnum"
+                  }
+                }
+              },
+              "example": {
+                "token": "ABC123",
+                "userId": "e14a460c-49cc-49f0-b4ab-1077e8ad13af",
+                "userType": "CLIENT"
+              }
+            }
+          }
+        ],
+        "tags": ["Auth"]
+      }
+    },
+    "/refresh-token": {
+      "post": {
+        "description": "Atualiza o token de acesso do usuário",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "schema": {
+              "$ref": "#/definitions/authHeader"
+            }
+          }
+        ],
+        "tags": ["Auth"]
+      }
+    },
+    "/advertisements": {
+      "get": {
+        "description": "Busca imóveis",
+        "parameters": [
+          {
+            "name": "locations",
+            "description": "Uma lista de bairros ou cidades (Enviar multiplos! Ex: `&locations=Americana,SP&locations=Campinas,SP`)",
+            "in": "query",
+            "required": true,
+            "type": "array",
+            "format": "array"
+          }
+        ],
+        "tags": ["Advertisements"]
+      },
+      "post": {
+        "description": "Cria um imóvel",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "token": "ABC123"
+              }
+            }
+          }
+        ],
+        "tags": ["Advertisements"]
+      },
+      "patch": {
+        "description": "Edita um imóvel",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "token": "ABC123"
+              }
+            }
+          }
+        ],
+        "tags": ["Advertisements"]
+      }
+    },
+    "/advertisements/{uuid}": {
+      "get": {
+        "description": "Busca por um imovél especifico",
+        "parameters": [
+          {
+            "name": "uuid",
+            "description": "O id do imóvel",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": ["Advertisements"]
+      },
+      "delete": {
+        "description": "Delete um imovél especifico",
+        "parameters": [
+          {
+            "name": "uuid",
+            "description": "O id do imóvel",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": ["Advertisements"]
+      }
+    },
+    "/advertisements/realtor": {
+      "get": {
+        "description": "Busca imóveis criados pelo corretor de imóveis",
+        "tags": ["Advertisements"]
+      }
+    },
+    "/locations": {
+      "get": {
+        "description": "Busca por um bairro ou cidade",
+        "tags": ["Locations"]
+      }
+    }
+  },
+  "definitions": {
+    "authHeader": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "string"
+    },
+    "userTypeEnum": {
+      "type": "string",
+      "enum": ["CLIENT", "REALTOR"]
+    }
+  }
+}
