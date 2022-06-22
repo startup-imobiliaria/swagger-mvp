@@ -71,6 +71,34 @@
             }
           }
         ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "example": "b21ddc7-3279-4f69-839c-4044ae71d9f7"
+                    },
+                    "userType": {
+                      "type": "string",
+                      "schema": {
+                        "$ref": "#/definitions/userTypeEnum"
+                      },
+                      "example": "CLIENT"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
         "tags": ["Auth"]
       }
     },
@@ -107,6 +135,34 @@
             }
           }
         ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "example": "b21ddc7-3279-4f69-839c-4044ae71d9f7"
+                    },
+                    "userType": {
+                      "type": "string",
+                      "schema": {
+                        "$ref": "#/definitions/userTypeEnum"
+                      },
+                      "example": "REALTOR"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
         "tags": ["Auth"]
       }
     },
@@ -135,6 +191,49 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "example": "b21ddc7-3279-4f69-839c-4044ae71d9f7"
+                    },
+                    "userType": {
+                      "type": "string",
+                      "schema": {
+                        "$ref": "#/definitions/userTypeEnum"
+                      },
+                      "example": "CLIENT"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "example": "2022-06-22T18:09:38Z"
+                    },
+                    "accessToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "example": "ABCDE12345"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
         "tags": ["Auth"]
       }
     },
@@ -163,6 +262,49 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "example": "b21ddc7-3279-4f69-839c-4044ae71d9f7"
+                    },
+                    "userType": {
+                      "type": "string",
+                      "schema": {
+                        "$ref": "#/definitions/userTypeEnum"
+                      },
+                      "example": "REALTOR"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "example": "2022-06-22T18:09:38Z"
+                    },
+                    "accessToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "example": "ABCDE12345"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
         "tags": ["Auth"]
       }
     },
@@ -198,6 +340,17 @@
             }
           }
         ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
         "tags": ["Auth"]
       }
     },
@@ -212,6 +365,31 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "example": "2022-06-22T18:09:38Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
         "tags": ["Auth"]
       }
     },
