@@ -191,6 +191,29 @@
             "format": "array"
           }
         ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/advertisementEntity"
+                      }
+                    },
+                    "page": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "tags": ["Advertisements"]
       },
       "post": {
@@ -251,6 +274,18 @@
             "format": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/advertisementEntity"
+                }
+              }
+            }
+          }
+        },
         "tags": ["Advertisements"]
       },
       "delete": {
@@ -271,6 +306,29 @@
     "/advertisements/realtor": {
       "get": {
         "description": "Busca imóveis criados pelo corretor de imóveis",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/realtorAdvertisementEntity"
+                      }
+                    },
+                    "page": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "tags": ["Advertisements"]
       }
     },
@@ -290,6 +348,354 @@
     "userTypeEnum": {
       "type": "string",
       "enum": ["CLIENT", "REALTOR"]
+    },
+    "advertisementTypeEnum": {
+      "type": "string",
+      "enum": ["HOUSE", "APARTMENT"]
+    },
+    "featureEnum": {
+      "type": "string",
+      "enum": [
+        "FURNISHED",
+        "PET_FRIENDLY",
+        "NEXT_TO_SUPERMARKET",
+        "NEXT_TO_BUS_STATION",
+        "NEXT_TO_METRO_STATION",
+        "HAS_BATHTUB",
+        "HAS_WHIRLPOOL",
+        "HAS_WOOD_FLOOR",
+        "HAS_LUXURY_KITCHEN",
+        "HAS_GRILL",
+        "HAS_GREEN_SPACE",
+        "HAS_PARTY_ROOM",
+        "HAS_HEATING",
+        "HAS_AIR_CONDITIONING",
+        "HAS_ELEVATOR",
+        "HAS_24H_CONCIERGE",
+        "HAS_STEAM_ROOM",
+        "IS_GATED_COMMUNITY"
+      ]
+    }
+  },
+  "components": {
+    "advertisementEntity": {
+      "type": "object",
+      "schema": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "schema": {
+            "$ref": "#/definitions/advertisementTypeEnum"
+          }
+        },
+        "area": {
+          "type": "number"
+        },
+        "rentValue": {
+          "type": "number"
+        },
+        "condominium": {
+          "type": "number"
+        },
+        "salePrice": {
+          "type": "number"
+        },
+        "iptu": {
+          "type": "number"
+        },
+        "forRent": {
+          "type": "boolean"
+        },
+        "forSale": {
+          "type": "boolean"
+        },
+        "nbrOfDorms": {
+          "type": "number"
+        },
+        "nbrOfBathrooms": {
+          "type": "number"
+        },
+        "nbrOfParkingSpaces": {
+          "type": "number"
+        },
+        "floor": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "schema": {
+              "url": {
+                "type": "string"
+              },
+              "order": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "schema": {
+            "city": {
+              "type": "string"
+            },
+            "district": {
+              "type": "string"
+            },
+            "street": {
+              "type": "string"
+            },
+            "number": {
+              "type": "string"
+            },
+            "complement": {
+              "type": "string"
+            },
+            "postalCode": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            }
+          }
+        },
+        "realtor": {
+          "type": "object",
+          "schema": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          }
+        },
+        "features": {
+          "type": "string",
+          "schema": {
+            "$ref": "#/definitions/featureEnum"
+          }
+        }
+      },
+      "example": {
+        "id": "ddd3c555-c8dd-4dfa-b7f1-4016365ca3ed",
+        "description": "Apartamento muito lindo, 10/10, compre agora.",
+        "type": "APARTMENT",
+        "area": 100,
+        "rentValue": 1600,
+        "condominium": 600,
+        "salePrice": 500000,
+        "iptu": 200,
+        "forRent": true,
+        "forSale": true,
+        "nbrOfDorms": 2,
+        "nbrOfBathrooms": 1,
+        "nbrOfParkingSpaces": 9,
+        "floor": 9,
+        "createdAt": "2022-06-22T18:09:38Z",
+        "images": [
+          {
+            "url": "https://image.com/foo1.png",
+            "order": 2
+          },
+          {
+            "url": "https://image.com/foo2.png",
+            "order": 1
+          }
+        ],
+        "location": {
+          "city": "Campinas",
+          "district": "Cambuí",
+          "street": "Rua Maria Monteiro",
+          "number": "1417",
+          "complement": "Apto 11",
+          "postalCode": "13025-150",
+          "state": "SP",
+          "latitude": -22.89194,
+          "longitude": -47.05364
+        },
+        "realtor": {
+          "id": "b160c4b8-4be4-4f41-870a-ffe14e83e17d",
+          "name": "José Mourinho",
+          "phone": "+5511999999999"
+        },
+        "features": [
+          "FURNISHED",
+          "PET_FRIENDLY",
+          "NEXT_TO_SUPERMARKET",
+          "NEXT_TO_BUS_STATION",
+          "NEXT_TO_METRO_STATION",
+          "HAS_BATHTUB",
+          "HAS_WHIRLPOOL",
+          "HAS_WOOD_FLOOR",
+          "HAS_LUXURY_KITCHEN",
+          "HAS_GRILL",
+          "HAS_GREEN_SPACE",
+          "HAS_PARTY_ROOM",
+          "HAS_HEATING",
+          "HAS_AIR_CONDITIONING",
+          "HAS_ELEVATOR",
+          "HAS_24H_CONCIERGE",
+          "HAS_STEAM_ROOM",
+          "IS_GATED_COMMUNITY"
+        ]
+      }
+    },
+    "realtorAdvertisementEntity": {
+      "type": "object",
+      "schema": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "schema": {
+            "$ref": "#/definitions/advertisementTypeEnum"
+          }
+        },
+        "area": {
+          "type": "number"
+        },
+        "rentValue": {
+          "type": "number"
+        },
+        "condominium": {
+          "type": "number"
+        },
+        "salePrice": {
+          "type": "number"
+        },
+        "iptu": {
+          "type": "number"
+        },
+        "forRent": {
+          "type": "boolean"
+        },
+        "forSale": {
+          "type": "boolean"
+        },
+        "floor": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "schema": {
+              "url": {
+                "type": "string"
+              },
+              "order": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "schema": {
+            "city": {
+              "type": "string"
+            },
+            "district": {
+              "type": "string"
+            },
+            "street": {
+              "type": "string"
+            },
+            "number": {
+              "type": "string"
+            },
+            "complement": {
+              "type": "string"
+            },
+            "postalCode": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            }
+          }
+        },
+        "viewsCount": {
+          "type": "number"
+        },
+        "contactCount": {
+          "type": "number"
+        },
+        "searchAppearancesCount": {
+          "type": "number"
+        }
+      },
+      "example": {
+        "id": "ddd3c555-c8dd-4dfa-b7f1-4016365ca3ed",
+        "description": "Apartamento muito lindo, 10/10, compre agora.",
+        "type": "APARTMENT",
+        "area": 100,
+        "rentValue": 1600,
+        "condominium": 600,
+        "salePrice": 500000,
+        "iptu": 200,
+        "forRent": true,
+        "forSale": true,
+        "floor": 9,
+        "createdAt": "2022-06-22T18:09:38Z",
+        "images": [
+          {
+            "url": "https://image.com/foo1.png",
+            "order": 2
+          },
+          {
+            "url": "https://image.com/foo2.png",
+            "order": 1
+          }
+        ],
+        "location": {
+          "city": "Campinas",
+          "district": "Cambuí",
+          "street": "Rua Maria Monteiro",
+          "number": "1417",
+          "complement": "Apto 11",
+          "postalCode": "13025-150",
+          "state": "SP",
+          "latitude": -22.89194,
+          "longitude": -47.05364
+        },
+        "viewsContact": 100,
+        "contactContact": 1,
+        "searchAppearancesCount": 10
+      }
     }
   }
 }
