@@ -564,6 +564,62 @@
     "/locations": {
       "get": {
         "description": "Busca por um bairro ou cidade",
+        "parameters": [
+          {
+            "name": "query",
+            "description": "Nome da cidade ou bairro",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/districtEntity"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/cityEntity"
+                      }
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type"
+                  }
+                },
+                "example": [
+                  {
+                    "id": "C/SP-CAMPINAS",
+                    "type": "CITY",
+                    "state": "SP",
+                    "city": "Campinas"
+                  },
+                  {
+                    "id": "D/SP-CAMPINAS-CENTRO",
+                    "type": "CITY",
+                    "state": "SP",
+                    "city": "Campinas",
+                    "district": "Centro"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          }
+        },
         "tags": ["Locations"]
       }
     }
@@ -924,6 +980,58 @@
         "viewsContact": 100,
         "contactContact": 1,
         "searchAppearancesCount": 10
+      }
+    },
+    "cityEntity": {
+      "type": "object",
+      "schema": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CITY", "DISTRICT"]
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "id": "C/SP-CAMPINAS",
+        "type": "CITY",
+        "state": "SP",
+        "city": "Campinas"
+      }
+    },
+    "districtEntity": {
+      "type": "object",
+      "schema": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["CITY", "DISTRICT"]
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "id": "D/SP-CAMPINAS-CENTRO",
+        "type": "CITY",
+        "state": "SP",
+        "city": "Campinas",
+        "district": "Centro"
       }
     }
   }
